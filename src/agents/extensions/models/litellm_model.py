@@ -104,19 +104,18 @@ class LitellmModel(Model):
                 prompt=prompt,
             )
 
-            if len(response.choices):
-                assert isinstance(response.choices[0], litellm.types.utils.Choices)
+            assert isinstance(response.choices[0], litellm.types.utils.Choices)
 
-                if _debug.DONT_LOG_MODEL_DATA:
-                    logger.debug("Received model response")
-                else:
-                    logger.debug(
-                        f"""LLM resp:\n{
-                            json.dumps(
-                                response.choices[0].message.model_dump(), indent=2, ensure_ascii=False
-                            )
-                        }\n"""
-                    )
+            if _debug.DONT_LOG_MODEL_DATA:
+                logger.debug("Received model response")
+            else:
+                logger.debug(
+                    f"""LLM resp:\n{
+                        json.dumps(
+                            response.choices[0].message.model_dump(), indent=2, ensure_ascii=False
+                        )
+                    }\n"""
+                )
 
             if hasattr(response, "usage"):
                 response_usage = response.usage
